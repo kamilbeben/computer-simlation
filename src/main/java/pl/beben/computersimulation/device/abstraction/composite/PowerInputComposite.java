@@ -1,16 +1,13 @@
 package pl.beben.computersimulation.device.abstraction.composite;
 
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.Device;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
-import static lombok.AccessLevel.PRIVATE;
 
 @Log4j2
-@FieldDefaults(level = PRIVATE)
 public class PowerInputComposite extends AbstractDevice implements PowerInput {
 
   @Getter

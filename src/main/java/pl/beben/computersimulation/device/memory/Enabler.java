@@ -1,14 +1,10 @@
 package pl.beben.computersimulation.device.memory;
 
-import lombok.experimental.FieldDefaults;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import pl.beben.computersimulation.device.booleanfunction.gate.AndGate;
 import pl.beben.computersimulation.device.misc.InputBinder;
-import static lombok.AccessLevel.PRIVATE;
-
-@FieldDefaults(level = PRIVATE)
 public class Enabler extends AbstractDevice {
 
   final PowerInput[] valueInputs;

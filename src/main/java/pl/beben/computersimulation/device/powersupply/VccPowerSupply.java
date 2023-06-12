@@ -2,14 +2,11 @@ package pl.beben.computersimulation.device.powersupply;
 
 import lombok.Getter;
 import lombok.experimental.Delegate;
-import lombok.experimental.FieldDefaults;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.SettablePowerOutput;
 import pl.beben.computersimulation.device.abstraction.composite.PowerOutputComposite;
-import static lombok.AccessLevel.PRIVATE;
 
 @Getter
-@FieldDefaults(level = PRIVATE)
 public class VccPowerSupply implements SettablePowerOutput {
 
   final String id;

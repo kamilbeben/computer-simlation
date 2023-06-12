@@ -1,19 +1,16 @@
 package pl.beben.computersimulation.device.misc;
 
-import lombok.experimental.FieldDefaults;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import static lombok.AccessLevel.PRIVATE;
 
 /**
  * Allows binding multiple outputs together, if any of them is true - then its output will be true
  *
  */
-@FieldDefaults(level = PRIVATE)
 public class OutputBinder extends AbstractDevice implements PowerOutput {
 
   final List<PowerOutput> outputs;
