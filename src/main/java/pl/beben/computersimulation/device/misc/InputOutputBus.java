@@ -1,15 +1,11 @@
 package pl.beben.computersimulation.device.misc;
 
-import lombok.experimental.FieldDefaults;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.Device;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-import static lombok.AccessLevel.PRIVATE;
-
-@FieldDefaults(level = PRIVATE)
 public class InputOutputBus extends AbstractDevice {
 
   final InputBinder[] inputs;

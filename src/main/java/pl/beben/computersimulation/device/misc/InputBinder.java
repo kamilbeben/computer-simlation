@@ -2,7 +2,6 @@ package pl.beben.computersimulation.device.misc;
 
 import lombok.Getter;
 import lombok.experimental.Delegate;
-import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.Device;
@@ -11,13 +10,11 @@ import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import pl.beben.computersimulation.device.abstraction.composite.PowerInputComposite;
 import java.util.ArrayList;
 import java.util.List;
-import static lombok.AccessLevel.PRIVATE;
 
 /**
  * Allows exposing multiple inputs as one - when the PowerInput parts state changes, all the connectedInputs will be notified
  */
 @Log4j2
-@FieldDefaults(level = PRIVATE)
 public class InputBinder extends AbstractDevice implements PowerInput, PowerOutput {
 
   @Getter

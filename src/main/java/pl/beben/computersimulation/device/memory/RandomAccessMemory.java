@@ -12,10 +12,10 @@ import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
 @Getter
 public class RandomAccessMemory extends AbstractDevice {
 
-  private final Register memoryAddressRegister;
-  private final PowerInput busSetterInput;
-  private final PowerInput busEnableInput;
-  private final InputOutputBus bus;
+  final Register memoryAddressRegister;
+  final PowerInput busSetterInput;
+  final PowerInput busEnableInput;
+  final InputOutputBus bus;
 
   final AndGate[][] activators;
   final Register[][] registers;
