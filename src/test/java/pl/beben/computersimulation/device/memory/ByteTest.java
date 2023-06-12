@@ -1,7 +1,9 @@
 package pl.beben.computersimulation.device.memory;
 
 import lombok.Cleanup;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.beben.computersimulation.device.OutputSpy;
 import pl.beben.computersimulation.device.TestWorld;
@@ -9,8 +11,21 @@ import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import static org.apache.logging.log4j.Level.INFO;
+import static pl.beben.computersimulation.LogUtils.restoreDefaultLogLevel;
+import static pl.beben.computersimulation.LogUtils.setLogLevel;
 
 class ByteTest {
+
+  @BeforeEach
+  void initialize() {
+    setLogLevel(INFO);
+  }
+
+  @AfterEach
+  void cleanup() {
+    restoreDefaultLogLevel();
+  }
 
   @Test
   public void test() {

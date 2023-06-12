@@ -1,12 +1,9 @@
 package pl.beben.computersimulation.device.memory;
 
-import lombok.experimental.FieldDefaults;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
-import static lombok.AccessLevel.PRIVATE;
 
-@FieldDefaults(level = PRIVATE)
 public class Register extends AbstractDevice {
 
   final Byte byteDevice;
@@ -45,6 +42,10 @@ public class Register extends AbstractDevice {
 
   public PowerInput getSetterInput() {
     return byteDevice.getSetterInput();
+  }
+
+  public void connectTo(PowerOutput[] outputs) {
+    byteDevice.connectTo(outputs);
   }
 
   public PowerInput[] getValueInputs() {
