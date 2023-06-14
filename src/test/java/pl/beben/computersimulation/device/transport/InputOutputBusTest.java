@@ -3,11 +3,13 @@ package pl.beben.computersimulation.device.transport;
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pl.beben.computersimulation.device.OutputSpy;
 import pl.beben.computersimulation.device.TestWorld;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
-import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
+import static pl.beben.computersimulation.TestUtils.constructOutputSpies;
+import static pl.beben.computersimulation.TestUtils.constructPowerSupplies;
+import static pl.beben.computersimulation.TestUtils.formatToBinaryString;
+import static pl.beben.computersimulation.TestUtils.setInputValue;
 
 class InputOutputBusTest {
 
@@ -17,75 +19,47 @@ class InputOutputBusTest {
     // given
     @Cleanup final var world = new TestWorld();
 
-    final var inputs1 = new VccPowerSupply[2];
-    final var inputs2 = new VccPowerSupply[2];
-    for (int i = 0; i < 2; i++) {
-      inputs1[i] = new VccPowerSupply("inputs1[" + i + "]");
-      world.registerAsTopLevelDevice(inputs1[i]);
+    final var initialValue = "00";
+    final var inputs1Value = "10";
+    final var inputs2Value = "01";
+    final var combinedValue = "11";
 
-      inputs2[i] = new VccPowerSupply("inputs2[" + i + "]");
-      world.registerAsTopLevelDevice(inputs2[i]);
-    }
-
-    final var outputs1 = new OutputSpy[2];
-    final var outputs2 = new OutputSpy[2];
-    for (int i = 0; i < 2; i++) {
-      outputs1[i] = new OutputSpy("outputs1[" + i + "]");
-      outputs2[i] = new OutputSpy("outputs2[" + i + "]");
-    }
+    final var inputs1 = constructPowerSupplies(world, "inputs1", initialValue);
+    final var inputs2 = constructPowerSupplies(world, "inputs2", initialValue);
 
     final var bus = new InputOutputBus("bus", 2);
-
-    bus.connectInputToBus(outputs1);
-    bus.connectInputToBus(outputs2);
-
     bus.connectOutputToBus(inputs1);
     bus.connectOutputToBus(inputs2);
 
-    // when
-    world.runSynchronously();
-
-    // then
-    Assertions.assertFalse(inputs1[0].getValue());
-    Assertions.assertFalse(inputs1[1].getValue());
-    Assertions.assertFalse(inputs2[0].getValue());
-    Assertions.assertFalse(inputs2[1].getValue());
-
-    Assertions.assertFalse(outputs1[0].getValue());
-    Assertions.assertFalse(outputs1[1].getValue());
-    Assertions.assertFalse(outputs2[0].getValue());
-    Assertions.assertFalse(outputs2[1].getValue());
+    final var outputs1 = constructOutputSpies("outputs1", bus.outputs);
+    final var outputs2 = constructOutputSpies("outputs2", bus.outputs);
 
     // when
-    inputs1[0].setValue(true);
-    inputs2[1].setValue(true);
     world.runSynchronously();
-
     // then
-    Assertions.assertTrue(inputs1[0].getValue());
-    Assertions.assertFalse(inputs1[1].getValue());
-    Assertions.assertFalse(inputs2[0].getValue());
-    Assertions.assertTrue(inputs2[1].getValue());
-
-    Assertions.assertTrue(outputs1[0].getValue());
-    Assertions.assertTrue(outputs1[1].getValue());
-    Assertions.assertTrue(outputs2[0].getValue());
-    Assertions.assertTrue(outputs2[1].getValue());
+    Assertions.assertEquals(initialValue, formatToBinaryString(inputs1));
+    Assertions.assertEquals(initialValue, formatToBinaryString(inputs2));
+    Assertions.assertEquals(initialValue, formatToBinaryString(outputs1));
+    Assertions.assertEquals(initialValue, formatToBinaryString(outputs2));
 
     // when
-    inputs2[1].setValue(false);
+    setInputValue(inputs1, inputs1Value);
+    setInputValue(inputs2, inputs2Value);
     world.runSynchronously();
-
     // then
-    Assertions.assertTrue(inputs1[0].getValue());
-    Assertions.assertFalse(inputs1[1].getValue());
-    Assertions.assertFalse(inputs2[0].getValue());
-    Assertions.assertFalse(inputs2[1].getValue());
+    Assertions.assertEquals(inputs1Value, formatToBinaryString(inputs1));
+    Assertions.assertEquals(inputs2Value, formatToBinaryString(inputs2));
+    Assertions.assertEquals(combinedValue, formatToBinaryString(outputs1));
+    Assertions.assertEquals(combinedValue, formatToBinaryString(outputs2));
 
-    Assertions.assertTrue(outputs1[0].getValue());
-    Assertions.assertFalse(outputs1[1].getValue());
-    Assertions.assertTrue(outputs2[0].getValue());
-    Assertions.assertFalse(outputs2[1].getValue());
+    // when
+    setInputValue(inputs2, initialValue);
+    world.runSynchronously();
+    // then
+    Assertions.assertEquals(inputs1Value, formatToBinaryString(inputs1));
+    Assertions.assertEquals(initialValue, formatToBinaryString(inputs2));
+    Assertions.assertEquals(inputs1Value, formatToBinaryString(outputs1));
+    Assertions.assertEquals(inputs1Value, formatToBinaryString(outputs2));
   }
 
   @Test

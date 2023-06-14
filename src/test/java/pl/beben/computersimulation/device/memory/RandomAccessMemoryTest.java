@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import static org.apache.logging.log4j.Level.INFO;
+import static pl.beben.computersimulation.TestUtils.constructOutputSpies;
+import static pl.beben.computersimulation.TestUtils.constructPowerSupplies;
+import static pl.beben.computersimulation.TestUtils.constructPowerSupply;
 import static pl.beben.computersimulation.LogUtils.restoreDefaultLogLevel;
 import static pl.beben.computersimulation.LogUtils.setLogLevel;
 
@@ -49,34 +52,13 @@ class RandomAccessMemoryTest {
     // given
     world = new TestWorld();
 
-    marInputPowerSuppliers = new VccPowerSupply[8];
-    for (int i = 0; i < 8; i++) {
-      final var powerSupply = new VccPowerSupply("marInputPowerSuppliers[" + i + "]");
-      world.registerAsTopLevelDevice(powerSupply);
-      marInputPowerSuppliers[i] = powerSupply;
-    }
+    marInputPowerSuppliers = constructPowerSupplies(world, "marInputPowerSuppliers", "0000 0000");
+    marSetterInput = constructPowerSupply(world, "marSetterInput", "1");
 
-    marSetterInput = new VccPowerSupply("marSetterInput");
-    marSetterInput.setValue(true); // leave this always on
-    world.registerAsTopLevelDevice(marSetterInput);
-
-    busInputPowerSuppliers = new VccPowerSupply[8];
-    for (int i = 0; i < 8; i++) {
-      final var powerSupply = new VccPowerSupply("busInputPowerSuppliers[" + i + "]");
-      world.registerAsTopLevelDevice(powerSupply);
-      busInputPowerSuppliers[i] = powerSupply;
-    }
-
-    busEnableInput = new VccPowerSupply("busEnableInput");
-    world.registerAsTopLevelDevice(busEnableInput);
-
-    busSetterInput = new VccPowerSupply("busSetterInput");
-    world.registerAsTopLevelDevice(busSetterInput);
-
-    busOutputSpies = new OutputSpy[8];
-    for (int i = 0; i < 8; i++) {
-      busOutputSpies[i] = new OutputSpy("busOutputSpies[" + i + "]");
-    }
+    busInputPowerSuppliers = constructPowerSupplies(world, "busInputPowerSuppliers", "0000 0000");
+    busEnableInput = constructPowerSupply(world, "busEnableInput");
+    busSetterInput = constructPowerSupply(world, "busSetterInput");
+    busOutputSpies = constructOutputSpies("busOutputSpies", 8);
 
     ram = new RandomAccessMemory("ram");
 

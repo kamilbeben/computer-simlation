@@ -5,6 +5,9 @@ import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import pl.beben.computersimulation.device.booleanfunction.gate.AndGate;
 import pl.beben.computersimulation.device.transport.InputBinder;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class Enabler extends AbstractDevice {
 
   final PowerInput[] valueInputs;
@@ -48,6 +51,18 @@ public class Enabler extends AbstractDevice {
 
   public PowerInput getEnableInput() {
     return enableInputBinder;
+  }
+
+  public void connectTo(PowerOutput[] outputs) {
+    if (outputs.length != valueInputs.length)
+      throw new IllegalArgumentException(
+        "Attempted to connect " + valueInputs.length + " inputs to " + outputs.length + " outputs." +
+        "Enabler " + this + ", outputs = [" + Arrays.stream(outputs).map(String::valueOf).collect(Collectors.joining(", ")) + "]"
+      );
+
+    for (int i = 0; i < valueInputs.length; i++) {
+      valueInputs[i].connectTo(outputs[i]);
+    }
   }
 
   public PowerInput[] getValueInputs() {

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import static org.apache.logging.log4j.Level.INFO;
+import static pl.beben.computersimulation.TestUtils.constructOutputSpies;
+import static pl.beben.computersimulation.TestUtils.constructPowerSupplies;
+import static pl.beben.computersimulation.TestUtils.constructPowerSupply;
 import static pl.beben.computersimulation.LogUtils.restoreDefaultLogLevel;
 import static pl.beben.computersimulation.LogUtils.setLogLevel;
 
@@ -33,26 +36,14 @@ class ByteTest {
     // given
     @Cleanup final var world = new TestWorld();
 
-    final var valuePowerSupplies = new VccPowerSupply[8];
-    for (int i = 0; i < 8; i++) {
-      valuePowerSupplies[i] = new VccPowerSupply("VccPowerSupply[" + i + "]");
-      world.registerAsTopLevelDevice(valuePowerSupplies[i]);
-    }
-
-    final var setterPowerSupply = new VccPowerSupply("SetterPowerSupply");
-    world.registerAsTopLevelDevice(setterPowerSupply);
+    final var valuePowerSupplies = constructPowerSupplies(world, "0000 0000");
+    final var setterPowerSupply = constructPowerSupply(world, "SetterPowerSupply");
 
     final var byteDevice = new Byte("Byte");
-    for (int i = 0; i < 8; i++) {
-      byteDevice.getValueInput(i).connectTo(valuePowerSupplies[i]);
-    }
+    byteDevice.connectTo(valuePowerSupplies);
     byteDevice.getSetterInput().connectTo(setterPowerSupply);
 
-    final var outputSpies = new OutputSpy[8];
-    for (int i = 0; i < 8; i++) {
-      outputSpies[i] = new OutputSpy();
-      outputSpies[i].connectTo(byteDevice.getOutput(i));
-    }
+    final var outputSpies = constructOutputSpies(byteDevice.getOutputs());
 
     // when
     world.start();
