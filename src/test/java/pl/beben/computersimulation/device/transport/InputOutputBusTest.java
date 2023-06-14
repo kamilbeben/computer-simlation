@@ -1,4 +1,4 @@
-package pl.beben.computersimulation.device.misc;
+package pl.beben.computersimulation.device.transport;
 
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;

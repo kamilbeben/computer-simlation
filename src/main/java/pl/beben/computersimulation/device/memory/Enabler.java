@@ -4,7 +4,7 @@ import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import pl.beben.computersimulation.device.booleanfunction.gate.AndGate;
-import pl.beben.computersimulation.device.misc.InputBinder;
+import pl.beben.computersimulation.device.transport.InputBinder;
 public class Enabler extends AbstractDevice {
 
   final PowerInput[] valueInputs;

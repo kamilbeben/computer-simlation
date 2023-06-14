@@ -1,4 +1,4 @@
-package pl.beben.computersimulation.device.misc;
+package pl.beben.computersimulation.device.transport;
 
 import lombok.Getter;
 import lombok.experimental.Delegate;

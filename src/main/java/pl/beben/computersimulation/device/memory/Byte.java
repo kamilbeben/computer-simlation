@@ -3,7 +3,7 @@ package pl.beben.computersimulation.device.memory;
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
-import pl.beben.computersimulation.device.misc.InputBinder;
+import pl.beben.computersimulation.device.transport.InputBinder;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 public class Byte extends AbstractDevice {
