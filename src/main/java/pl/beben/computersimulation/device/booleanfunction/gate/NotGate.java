@@ -1,7 +1,7 @@
 package pl.beben.computersimulation.device.booleanfunction.gate;
 
 import pl.beben.computersimulation.device.booleanfunction.LogicGate;
-import pl.beben.computersimulation.device.misc.InputBinder;
+import pl.beben.computersimulation.device.transport.InputBinder;
 
 public class NotGate extends LogicGate {
 

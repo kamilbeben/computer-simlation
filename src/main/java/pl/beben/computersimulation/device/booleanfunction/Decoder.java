@@ -2,7 +2,7 @@ package pl.beben.computersimulation.device.booleanfunction;
 
 import pl.beben.computersimulation.device.booleanfunction.gate.MultiInputAndGate;
 import pl.beben.computersimulation.device.booleanfunction.gate.NotGate;
-import pl.beben.computersimulation.device.misc.InputBinder;
+import pl.beben.computersimulation.device.transport.InputBinder;
 import pl.beben.computersimulation.utils.TruthTableSanitizer;
 import static pl.beben.computersimulation.utils.DecoderUtils.generateTruthTable;
 import static pl.beben.computersimulation.utils.DecoderUtils.inputsCountToOutputsCount;

@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pl.beben.computersimulation.device.OutputSpy;
 import pl.beben.computersimulation.device.TestWorld;
-import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
+import static pl.beben.computersimulation.TestUtils.constructOutputSpy;
+import static pl.beben.computersimulation.TestUtils.constructPowerSupply;
 
 class BitTest {
 
@@ -15,18 +16,14 @@ class BitTest {
     // given
     @Cleanup final var world = new TestWorld();
 
-    final var valuePowerSupply = new VccPowerSupply("ValuePowerSupply");
-    world.registerAsTopLevelDevice(valuePowerSupply);
-
-    final var setterPowerSupply = new VccPowerSupply("SetterPowerSupply");
-    world.registerAsTopLevelDevice(setterPowerSupply);
+    final var valuePowerSupply = constructPowerSupply(world, "ValuePowerSupply");
+    final var setterPowerSupply = constructPowerSupply(world, "SetterPowerSupply");
 
     final var bit = new Bit("Bit");
     bit.getValueInput().connectTo(valuePowerSupply);
     bit.getSetterInput().connectTo(setterPowerSupply);
 
-    final var outputSpy = new OutputSpy();
-    outputSpy.connectTo(bit);
+    final var outputSpy = constructOutputSpy(bit);
 
     // when
     world.start();

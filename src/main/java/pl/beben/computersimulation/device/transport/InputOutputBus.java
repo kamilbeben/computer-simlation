@@ -1,4 +1,4 @@
-package pl.beben.computersimulation.device.misc;
+package pl.beben.computersimulation.device.transport;
 
 import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.Device;

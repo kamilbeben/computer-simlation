@@ -5,8 +5,8 @@ import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.booleanfunction.Decoder;
 import pl.beben.computersimulation.device.booleanfunction.gate.AndGate;
-import pl.beben.computersimulation.device.misc.InputBinder;
-import pl.beben.computersimulation.device.misc.InputOutputBus;
+import pl.beben.computersimulation.device.transport.InputBinder;
+import pl.beben.computersimulation.device.transport.InputOutputBus;
 import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
 
 @Getter
