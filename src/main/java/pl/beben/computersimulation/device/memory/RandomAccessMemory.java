@@ -5,9 +5,9 @@ import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.booleanfunction.Decoder;
 import pl.beben.computersimulation.device.booleanfunction.gate.AndGate;
+import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
 import pl.beben.computersimulation.device.transport.InputBinder;
 import pl.beben.computersimulation.device.transport.InputOutputBus;
-import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
 
 @Getter
 public class RandomAccessMemory extends AbstractDevice {
@@ -82,9 +82,7 @@ public class RandomAccessMemory extends AbstractDevice {
 
     memoryAddressRegister = new Register(id + "#mar");
 
-    final var alwaysOnPowerOutput = new VccPowerSupply(id + "#alwaysOnPowerInput");
-    alwaysOnPowerOutput.setValue(true);
-    memoryAddressRegister.getEnableInput().connectTo(alwaysOnPowerOutput);
+    memoryAddressRegister.getEnableInput().connectTo(VccPowerSupply.alwaysOn());
 
     busSetterInput = new InputBinder(this, id + "#busSetter");
     busEnableInput = new InputBinder(this, id + "#busEnabler");
