@@ -61,7 +61,7 @@ abstract class LogicGateBasedBitwiseOperation extends BitwiseOperation {
       if (logicGate.getInputsCount() != inputs.length)
         throw new IllegalArgumentException(
           "Cannot construct LogicGateBasedBitwiseOperation. LogicGate has " + logicGate.getInputsCount() + " inputs, " +
-            "but LogicGateBasedBitwiseOperation supports only " + inputs.length + " inputs."
+          "but LogicGateBasedBitwiseOperation supports only " + inputs.length + " inputs."
         );
 
       for (int inputByteIndex = 0; inputByteIndex < inputs.length; inputByteIndex++) {

@@ -2,9 +2,13 @@ package pl.beben.computersimulation.device.arithmeticlogicunit;
 
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pl.beben.computersimulation.device.TestWorld;
+import pl.beben.computersimulation.device.booleanfunction.LogicGate;
+import pl.beben.computersimulation.device.booleanfunction.gate.AndGate;
+import java.util.UUID;
 import static pl.beben.computersimulation.TestUtils.connect;
 import static pl.beben.computersimulation.TestUtils.constructOutputSpies;
 import static pl.beben.computersimulation.TestUtils.constructPowerSupplies;
@@ -69,6 +73,23 @@ class LogicGateBasedBitwiseOperationTest {
       new BitwiseNot("bitwiseNot"),
       inputBinaryString, expectedOutputBinaryString
     );
+  }
+
+  @Test
+  public void testInvalidGateShouldThrowException() {
+
+    try {
+      new LogicGateBasedBitwiseOperation(UUID.randomUUID().toString(), 1) {
+        @Override
+        protected LogicGate constructLogicGate(String id) {
+          return new AndGate(UUID.randomUUID().toString());
+        }
+      };
+      Assertions.fail("Should've thrown IllegalArgumentException because logic gate has 2 inputs but bitwise operator has 1 input");
+    } catch (IllegalArgumentException ignored) {
+
+    }
+
   }
 
   private void testBinaryBitwiseOperator(LogicGateBasedBitwiseOperation instance,
