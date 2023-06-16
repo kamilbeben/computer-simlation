@@ -1,10 +1,11 @@
-package pl.beben.computersimulation.device.arithmeticlogicunit.shifter;
+package pl.beben.computersimulation.device.arithmeticlogicunit;
 
 import lombok.Cleanup;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pl.beben.computersimulation.device.TestWorld;
+import static pl.beben.computersimulation.TestUtils.connect;
 import static pl.beben.computersimulation.TestUtils.constructOutputSpies;
 import static pl.beben.computersimulation.TestUtils.constructOutputSpy;
 import static pl.beben.computersimulation.TestUtils.constructPowerSupplies;
@@ -33,24 +34,18 @@ class ShifterTest {
     @Cleanup final var world = new TestWorld();
 
     final var shifter = switch (type) {
-      case LEFT -> new Shifter.LeftShifter("leftShifter");
-      case RIGHT -> new Shifter.RightShifter("rightShifter");
+      case LEFT -> new LeftShifter("leftShifter");
+      case RIGHT -> new RightShifter("rightShifter");
       default -> throw new IllegalStateException("Unexpected value: " + type);
     };
 
-    final var alwaysOnPowerSupply = constructPowerSupply(world, "alwaysOn", true);
     final var powerSupplies = constructPowerSupplies(world, inputBinaryString);
     final var shiftInput = constructPowerSupply(world, "shiftInput", shiftInputBinaryString);
-    final var outputSpies = constructOutputSpies(shifter.getOutput().getOutputs());
+    final var outputSpies = constructOutputSpies(shifter.getOutput());
     final var shiftOutput = constructOutputSpy("shiftOutput", shifter.getShiftOutput());
 
-    shifter.getInput().connectTo(powerSupplies);
+    connect(shifter.getInput(), powerSupplies);
     shifter.getShiftInput().connectTo(shiftInput);
-
-    shifter.getInput().getSetterInput().connectTo(alwaysOnPowerSupply);
-    shifter.getInput().getEnableInput().connectTo(alwaysOnPowerSupply);
-    shifter.getOutput().getSetterInput().connectTo(alwaysOnPowerSupply);
-    shifter.getOutput().getEnableInput().connectTo(alwaysOnPowerSupply);
 
     // when
     world.runSynchronously();
