@@ -57,6 +57,20 @@ class LogicGateBasedBitwiseOperationTest {
     );
   }
 
+  @ParameterizedTest
+  @CsvSource({
+    "0000 0000, 1111 1111",
+    "1111 1111, 0000 0000",
+    "1010 1010, 0101 0101"
+  })
+  public void testNot(String inputBinaryString, String expectedOutputBinaryString) {
+
+    testUnaryBitwiseOperator(
+      new BitwiseNot("bitwiseNot"),
+      inputBinaryString, expectedOutputBinaryString
+    );
+  }
+
   private void testBinaryBitwiseOperator(LogicGateBasedBitwiseOperation instance,
                                          String input1BinaryString, String input2BinaryString, String expectedOutputBinaryString) {
 
@@ -65,6 +79,22 @@ class LogicGateBasedBitwiseOperationTest {
 
     connect(instance.getInput(0), constructPowerSupplies(world, "input1PowerSupplies", input1BinaryString));
     connect(instance.getInput(1), constructPowerSupplies(world, "input2PowerSupplies", input2BinaryString));
+
+    final var outputSpies = constructOutputSpies(instance.getOutput());
+
+    // when
+    world.runSynchronously();
+    // then
+    Assertions.assertEquals(expectedOutputBinaryString, formatToBinaryString(outputSpies));
+  }
+
+  private void testUnaryBitwiseOperator(LogicGateBasedBitwiseOperation instance,
+                                        String inputBinaryString, String expectedOutputBinaryString) {
+
+    // given
+    @Cleanup final var world = new TestWorld();
+
+    connect(instance.getInput(0), constructPowerSupplies(world, "inputPowerSupplies", inputBinaryString));
 
     final var outputSpies = constructOutputSpies(instance.getOutput());
 
