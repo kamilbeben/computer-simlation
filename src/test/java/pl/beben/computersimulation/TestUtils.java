@@ -3,6 +3,7 @@ package pl.beben.computersimulation;
 import org.junit.jupiter.api.Assertions;
 import pl.beben.computersimulation.device.OutputSpy;
 import pl.beben.computersimulation.device.World;
+import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import pl.beben.computersimulation.device.abstraction.SettablePowerOutput;
 import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
@@ -66,6 +67,14 @@ public class TestUtils {
 
   public static VccPowerSupply[] constructPowerSupplies(World world, String id, String initialValueBinaryString) {
     return constructPowerSupplies(world, id, parseBinaryString(initialValueBinaryString));
+  }
+
+  public static void connect(PowerInput[] valueInputs, PowerOutput[] powerOutputs) {
+    assert valueInputs.length == powerOutputs.length;
+
+    for (int i = 0; i < valueInputs.length; i++) {
+      valueInputs[i].connectTo(powerOutputs[i]);
+    }
   }
 
   public static VccPowerSupply[] constructPowerSupplies(World world, String id, boolean[] initialValue) {
