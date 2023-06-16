@@ -42,8 +42,23 @@ class LogicGateBasedBitwiseOperationTest {
     );
   }
 
-  public void testBinaryBitwiseOperator(LogicGateBasedBitwiseOperation instance,
-                                        String input1BinaryString, String input2BinaryString, String expectedOutputBinaryString) {
+  @ParameterizedTest
+  @CsvSource({
+    "0000 0000, 0000 0000, 0000 0000",
+    "1111 1111, 1111 1111, 0000 0000",
+    "0000 0000, 1111 1111, 1111 1111",
+    "1100 0000, 1010 0000, 0110 0000",
+  })
+  public void testXor(String input1BinaryString, String input2BinaryString, String expectedOutputBinaryString) {
+
+    testBinaryBitwiseOperator(
+      new BitwiseXor("bitwiseXor"),
+      input1BinaryString, input2BinaryString, expectedOutputBinaryString
+    );
+  }
+
+  private void testBinaryBitwiseOperator(LogicGateBasedBitwiseOperation instance,
+                                         String input1BinaryString, String input2BinaryString, String expectedOutputBinaryString) {
 
     // given
     @Cleanup final var world = new TestWorld();
