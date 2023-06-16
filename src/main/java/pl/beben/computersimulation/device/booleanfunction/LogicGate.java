@@ -5,7 +5,7 @@ import pl.beben.computersimulation.device.abstraction.PowerOutput;
 
 public abstract class LogicGate extends BooleanFunction implements PowerOutput {
 
-  public LogicGate(String id, int inputsCount, String truthTable) {
+  protected LogicGate(String id, int inputsCount, String truthTable) {
     super(id, inputsCount, 1, truthTable);
   }
 

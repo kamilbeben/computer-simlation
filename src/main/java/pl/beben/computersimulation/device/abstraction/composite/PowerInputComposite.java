@@ -6,13 +6,14 @@ import pl.beben.computersimulation.device.abstraction.AbstractDevice;
 import pl.beben.computersimulation.device.abstraction.Device;
 import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
+import java.util.function.Consumer;
 
 @Log4j2
 public class PowerInputComposite extends AbstractDevice implements PowerInput {
 
   @Getter
   final Device parentDevice;
-  final Runnable update;
+  final Consumer<Boolean> valueConsumer;
 
   @Getter
   PowerOutput output;
@@ -21,10 +22,10 @@ public class PowerInputComposite extends AbstractDevice implements PowerInput {
     this(parentDevice, id, null);
   }
 
-  public PowerInputComposite(Device parentDevice, String id, Runnable update) {
+  public PowerInputComposite(Device parentDevice, String id, Consumer<Boolean> valueConsumer) {
     super(parentDevice + "#" + id);
     this.parentDevice = parentDevice;
-    this.update = update;
+    this.valueConsumer = valueConsumer;
   }
 
   @Override
@@ -49,8 +50,8 @@ public class PowerInputComposite extends AbstractDevice implements PowerInput {
 
   @Override
   public void update() {
-    if (update != null)
-      update.run();
+    if (valueConsumer != null)
+      valueConsumer.accept(getValue());
   }
 
 }

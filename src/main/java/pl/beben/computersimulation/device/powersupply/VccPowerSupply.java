@@ -19,6 +19,14 @@ public class VccPowerSupply implements SettablePowerOutput {
     this.output = new PowerOutputComposite(this, id + "#output");
   }
 
+  private static int alwaysOnIdSequence = 0;
+
+  public static VccPowerSupply alwaysOn() {
+    final var alwaysOnPowerOutput = new VccPowerSupply("alwaysOnPowerInput" + alwaysOnIdSequence++);
+    alwaysOnPowerOutput.setValue(true);
+    return alwaysOnPowerOutput;
+  }
+
   @Override
   public String toString() {
     return id;

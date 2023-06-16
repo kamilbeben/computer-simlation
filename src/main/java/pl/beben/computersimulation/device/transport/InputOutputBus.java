@@ -6,6 +6,7 @@ import pl.beben.computersimulation.device.abstraction.PowerInput;
 import pl.beben.computersimulation.device.abstraction.PowerOutput;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+
 public class InputOutputBus extends AbstractDevice {
 
   final InputBinder[] inputs;

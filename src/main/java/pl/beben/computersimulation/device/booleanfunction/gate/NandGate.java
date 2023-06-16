@@ -64,7 +64,7 @@ public class NandGate extends LogicGate {
     outputs[0] = new PowerOutputComposite(this, "output");
   }
 
-  private void update() {
+  private void update(boolean eventSourceValue) {
     ((PowerOutputComposite) outputs[0]).setValue(
       !inputs[0].getValue() || !inputs[1].getValue()
     );
