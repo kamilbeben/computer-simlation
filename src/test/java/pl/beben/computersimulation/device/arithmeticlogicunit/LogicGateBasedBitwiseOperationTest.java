@@ -27,6 +27,21 @@ class LogicGateBasedBitwiseOperationTest {
     );
   }
 
+  @ParameterizedTest
+  @CsvSource({
+    "0000 0000, 0000 0000, 0000 0000",
+    "1111 1111, 1111 1111, 1111 1111",
+    "0000 0000, 1111 1111, 1111 1111",
+    "1100 0000, 1010 0000, 1110 0000",
+  })
+  public void testOr(String input1BinaryString, String input2BinaryString, String expectedOutputBinaryString) {
+
+    testBinaryBitwiseOperator(
+      new BitwiseOr("bitwiseOr"),
+      input1BinaryString, input2BinaryString, expectedOutputBinaryString
+    );
+  }
+
   public void testBinaryBitwiseOperator(LogicGateBasedBitwiseOperation instance,
                                         String input1BinaryString, String input2BinaryString, String expectedOutputBinaryString) {
 
