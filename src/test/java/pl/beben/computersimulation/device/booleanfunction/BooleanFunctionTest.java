@@ -96,7 +96,6 @@ class BooleanFunctionTest {
     Assertions.assertFalse(booleanFunctionClasses.isEmpty(), "No classes found, has package name been renamed?");
 
     return booleanFunctionClasses.stream()
-      .map(BooleanFunctionTest::construct)
       .map(BooleanFunctionTest::computeTestCases).flatMap(List::stream);
   }
 
@@ -105,8 +104,8 @@ class BooleanFunctionTest {
     return (BooleanFunction) classObject.getConstructor(String.class).newInstance(classObject.getSimpleName());
   }
 
-  private static List<Arguments> computeTestCases(BooleanFunction booleanFunction) {
-
+  private static List<Arguments> computeTestCases(Class classObject) {
+    final var booleanFunction = construct(classObject);
     final var truthTable = TruthTableSanitizer.sanitize(booleanFunction.truthTable);
 
     final var testCases = new ArrayList<Arguments>();
@@ -134,7 +133,7 @@ class BooleanFunctionTest {
 
       testCases.add(
         Arguments.of(
-          booleanFunction,
+          construct(classObject), // constructing new object because every test case should have a fresh copy
           inputs,
           expectedOutputs
         )
