@@ -26,7 +26,7 @@ public class NotGate extends LogicGate {
     //
 
     final var nandGate = new NandGate(id + "#inputBinder#nand");
-    final var inputBinder = new InputBinder(this, "inputBinder");
+    final var inputBinder = new InputBinder(this, id + "#inputBinder");
 
     nandGate.getInput(0).connectTo(inputBinder);
     nandGate.getInput(1).connectTo(inputBinder);
