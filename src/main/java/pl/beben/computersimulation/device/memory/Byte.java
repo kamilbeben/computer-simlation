@@ -16,21 +16,20 @@ public class Byte extends AbstractDevice {
     super(id);
 
     //
-    //
-    // (valueInputs[0])---|```|
-    //                    |BIT|---(outputs[0])
+    // (valueInputs[7])---|```|
+    //                    |BIT|---(outputs[7])
     //                  .-|...|
     //                  |
     //                  .
-    //                  ... repeat from 0 to 7
+    //                  ... repeat from 7 to 0
     //                  .
     //                  |
-    // (valueInputs[6])-+-|```|
-    //                  | |BIT|---(outputs[6])
+    // (valueInputs[1])-+-|```|
+    //                  | |BIT|---(outputs[1])
     //                  *-|...|
     //                  |
-    // (valueInputs[7])-+-|```|
-    //                  | |BIT|---(outputs[7])
+    // (valueInputs[0])-+-|```|
+    //                  | |BIT|---(outputs[0])
     //                  *-|...|
     //                  |
     // (setterInput)----`
