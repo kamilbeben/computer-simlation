@@ -17,6 +17,7 @@ public class TestWorld extends World {
   Deque<StepStatistics> stepStatistics = new ConcurrentLinkedDeque<>();
   int deviceStepCounter;
 
+  RuntimeException exceptionThrownByStep;
   CountDownLatch stepLatch;
 
   public void runSynchronously() {
@@ -38,12 +39,36 @@ public class TestWorld extends World {
     //    eventually everything is refreshing as it's supposed to, but it takes a few more
     //    steps for more complicated circuits
     stepLatch = new CountDownLatch(6);
+    exceptionThrownByStep = null;
 
     try {
       stepLatch.await(10, SECONDS);
     } finally {
       stepLatch = null;
     }
+
+    if (exceptionThrownByStep != null)
+      throw exceptionThrownByStep;
+
+  }
+
+  @Override
+  protected void run() {
+    assert isRunning;
+
+    executor.submit(() -> {
+      try {
+        while (isRunning) {
+          step();
+        }
+      } catch (RuntimeException e) {
+        exceptionThrownByStep = e;
+
+        while (stepLatch != null && stepLatch.getCount() > 0) {
+          stepLatch.countDown();
+        }
+      }
+    });
   }
 
   @Override
@@ -78,8 +103,8 @@ public class TestWorld extends World {
     if (stepLatch != null && stepLatch.getCount() > 0)
       throw new IllegalStateException("The world has stopped before the stepLatch went off");
 
-    else
-      stepLatch = null;
+    stepLatch = null;
+    exceptionThrownByStep = null;
   }
 
   @Override

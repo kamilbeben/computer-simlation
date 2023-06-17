@@ -45,8 +45,12 @@ public class World implements AutoCloseable {
     assert isRunning;
 
     executor.submit(() -> {
-      while (isRunning) {
-        step();
+      try {
+        while (isRunning) {
+          step();
+        }
+      } catch (Exception e) {
+        log.error("Step error", e);
       }
     });
   }

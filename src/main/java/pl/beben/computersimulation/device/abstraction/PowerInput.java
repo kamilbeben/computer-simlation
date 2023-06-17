@@ -9,8 +9,6 @@ public interface PowerInput extends Device {
   void connectTo(PowerOutput output);
   boolean isConnected();
 
-  default void update() {
-
-  }
+  void update();
 
 }
