@@ -37,9 +37,9 @@ public class FullAdder extends AbstractDevice {
     //
 
     inputs = new PowerInput[2];
-    inputs[0] = new InputBinder(this, "inputs[0]");
-    inputs[1] = new InputBinder(this, "inputs[1]");
-    carryInput = new InputBinder(this, "carryInput");
+    inputs[0] = new InputBinder(this, id + "#inputs[0]");
+    inputs[1] = new InputBinder(this, id + "#inputs[1]");
+    carryInput = new InputBinder(this, id + "#carryInput");
 
     final var inputXorGate = new XorGate(id + "#inputXorGate");
     inputXorGate.getInput(0).connectTo((InputBinder) inputs[0]);
