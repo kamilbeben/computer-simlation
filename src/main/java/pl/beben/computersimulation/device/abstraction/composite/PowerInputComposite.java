@@ -38,6 +38,9 @@ public class PowerInputComposite extends AbstractDevice implements PowerInput {
 
   @Override
   public void connectTo(PowerOutput output) {
+    if (this.output != null)
+      throw new IllegalStateException("Attempting to connect already connected input");
+
     log.debug("Connecting {} to {}", this, output);
     this.output = output;
     this.output.getConnectedInputs().add(this);
