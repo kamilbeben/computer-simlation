@@ -14,14 +14,14 @@ public class Register extends AbstractDevice {
 
     //
     //                    |```|   |```|
-    // (valueInputs[0])---|   |---| E |---(outputs[0])
-    // (valueInputs[1])---|   |---| N |---(outputs[1])
-    // (valueInputs[2])---| B |---| A |---(outputs[2])
-    // (valueInputs[3])---| Y |---| B |---(outputs[3])
-    // (valueInputs[4])---| T |---| L |---(outputs[4])
-    // (valueInputs[5])---| E |---| E |---(outputs[5])
-    // (valueInputs[6])---|   |---| R |---(outputs[6])
-    // (valueInputs[7])---|   |---|   |---(outputs[7])
+    // (valueInputs[7])---|   |---| E |---(outputs[7])
+    // (valueInputs[6])---|   |---| N |---(outputs[6])
+    // (valueInputs[5])---| B |---| A |---(outputs[5])
+    // (valueInputs[4])---| Y |---| B |---(outputs[4])
+    // (valueInputs[3])---| T |---| L |---(outputs[3])
+    // (valueInputs[2])---| E |---| E |---(outputs[2])
+    // (valueInputs[1])---|   |---| R |---(outputs[1])
+    // (valueInputs[0])---|   |---|   |---(outputs[0])
     //                    |...|   |...|
     //                      |       |
     // (setterInput)--------`       |

@@ -27,28 +27,28 @@ public abstract class Shifter extends BitwiseOperation {
     // Left shifter:
     //        (shiftOutput)
     //              |
-    // (input[0])---`  .-----------(outputs[0])    |
-    // (input[1])-----` .----------(outputs[1])    |                     .-`|
-    // (input[2])------` .---------(outputs[2])    |                    |   |---(shiftOutput)
-    // (input[3])-------` .--------(outputs[3])    |    (inputBus)======| L |===(outputBus)
-    // (input[4])--------` .-------(outputs[4])    |    (shiftInput)----|   |
-    // (input[5])---------` .------(outputs[5])    |                    |.-`
-    // (input[6])----------` .-----(outputs[6])    |                    `
-    // (input[7])-----------`   .--(outputs[7])    |
+    // (input[7])---`  .-----------(outputs[7])    |
+    // (input[6])-----` .----------(outputs[6])    |                     .-`|
+    // (input[5])------` .---------(outputs[5])    |                    |   |---(shiftOutput)
+    // (input[4])-------` .--------(outputs[4])    |    (inputBus)======| L |===(outputBus)
+    // (input[3])--------` .-------(outputs[3])    |    (shiftInput)----|   |
+    // (input[2])---------` .------(outputs[2])    |                    |.-`
+    // (input[1])----------` .-----(outputs[1])    |                    `
+    // (input[0])-----------`   .--(outputs[0])    |
     //                          |
     //                     (shiftInput)
     //
     // Right shifter:
     //                    (shiftInput)
     //                         |
-    // (input[0])------------. `---(outputs[0])    |
-    // (input[1])-----------. `----(outputs[1])    |                    |`-.
-    // (input[2])----------. `-----(outputs[2])    |    (shiftInput)----|   |
-    // (input[3])---------. `------(outputs[3])    |    (inputBus)======| R |===(outputBus)
-    // (input[4])--------. `-------(outputs[4])    |                    |   |---(shiftOutput)
-    // (input[5])-------. `--------(outputs[5])    |                     `-.|
-    // (input[6])------. `---------(outputs[6])    |                        `
-    // (input[7])---.   `----------(outputs[7])    |
+    // (input[7])------------. `---(outputs[7])    |
+    // (input[6])-----------. `----(outputs[6])    |                    |`-.
+    // (input[5])----------. `-----(outputs[5])    |    (shiftInput)----|   |
+    // (input[4])---------. `------(outputs[4])    |    (inputBus)======| R |===(outputBus)
+    // (input[3])--------. `-------(outputs[3])    |                    |   |---(shiftOutput)
+    // (input[2])-------. `--------(outputs[2])    |                     `-.|
+    // (input[1])------. `---------(outputs[1])    |                        `
+    // (input[0])---.   `----------(outputs[0])    |
     //              |
     //         (shiftOutput)
     //
@@ -63,25 +63,25 @@ public abstract class Shifter extends BitwiseOperation {
     shiftOutput = new PowerOutputComposite(this, "#shiftOutput");
     
     if (type == LEFT) {
-      input[0] = constructInput(0, (SettablePowerOutput) shiftOutput);
-      input[1] = constructInput(1, output[0]);
-      input[2] = constructInput(2, output[1]);
-      input[3] = constructInput(3, output[2]);
-      input[4] = constructInput(4, output[3]);
-      input[5] = constructInput(5, output[4]);
-      input[6] = constructInput(6, output[5]);
-      input[7] = constructInput(7, output[6]);
-      shiftInput = constructInput("#shiftInput", output[7]);
-    } else {
-      shiftInput = constructInput("#shiftInput", output[0]);
-      input[0] = constructInput(0, output[1]);
-      input[1] = constructInput(1, output[2]);
-      input[2] = constructInput(2, output[3]);
-      input[3] = constructInput(3, output[4]);
-      input[4] = constructInput(4, output[5]);
-      input[5] = constructInput(5, output[6]);
-      input[6] = constructInput(6, output[7]);
       input[7] = constructInput(7, (SettablePowerOutput) shiftOutput);
+      input[6] = constructInput(6, output[7]);
+      input[5] = constructInput(5, output[6]);
+      input[4] = constructInput(4, output[5]);
+      input[3] = constructInput(3, output[4]);
+      input[2] = constructInput(2, output[3]);
+      input[1] = constructInput(1, output[2]);
+      input[0] = constructInput(0, output[1]);
+      shiftInput = constructInput("#shiftInput", output[0]);
+    } else {
+      shiftInput = constructInput("#shiftInput", output[7]);
+      input[7] = constructInput(7, output[6]);
+      input[6] = constructInput(6, output[5]);
+      input[5] = constructInput(5, output[4]);
+      input[4] = constructInput(4, output[3]);
+      input[3] = constructInput(3, output[2]);
+      input[2] = constructInput(2, output[1]);
+      input[1] = constructInput(1, output[0]);
+      input[0] = constructInput(0, (SettablePowerOutput) shiftOutput);
     }
   }
 

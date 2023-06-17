@@ -11,7 +11,9 @@ import pl.beben.computersimulation.device.powersupply.VccPowerSupply;
 public class TestUtils {
 
   public static boolean[] parseBinaryString(String binaryStringRaw) {
-    final var binaryString = binaryStringRaw.replaceAll("\\s+", "");
+    // big-endian convention dictates ordering from the most significant to the least significant bit -
+    // - hence the reverse ordering
+    final var binaryString = new StringBuilder(binaryStringRaw.replaceAll("\\s+", "")).reverse();
     final var value = new boolean[binaryString.length()];
     for (int i = 0; i < binaryString.length(); i++) {
       value[i] = binaryString.charAt(i) == '1';
@@ -42,7 +44,9 @@ public class TestUtils {
   public static String formatToBinaryString(boolean[] value) {
     final var binaryStringBuilder = new StringBuilder(value.length);
 
-    for (int i = 0; i < value.length; i++) {
+    // big-endian convention dictates ordering from the most significant to the least significant bit -
+    // - hence the reverse ordering
+    for (int i = value.length - 1; i >= 0; i--) {
       binaryStringBuilder.append(
         value[i]
           ? "1"
