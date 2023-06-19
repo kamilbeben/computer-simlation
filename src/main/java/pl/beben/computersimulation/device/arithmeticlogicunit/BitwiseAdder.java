@@ -15,9 +15,6 @@ public class BitwiseAdder extends BitwiseOperation {
     super(id, 2);
 
     //
-    // Diagram representing binary (2 input) bitwise operation based on a LogicGate having 2 inputs
-    //
-    //
     //                                                 .---------(carryOutput)
     //                                                 |
     // (inputs[0][7])----------------------------|```````````|
