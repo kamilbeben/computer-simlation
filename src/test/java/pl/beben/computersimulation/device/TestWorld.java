@@ -38,7 +38,13 @@ public class TestWorld extends World {
     //  - it takes two times that for RandomAccessMemoryTest to pass, which means that
     //    eventually everything is refreshing as it's supposed to, but it takes a few more
     //    steps for more complicated circuits
-    stepLatch = new CountDownLatch(6);
+    //  - 8 steps for BitwiseComparatorTest
+
+    // It might seem like a dirty hack but in all honesty - the electricity in the computer travels almost instantly, so it's not noticeable, but it works
+    // like just like that - not everything is set immediately, some outputs will be flipping until they eventually settle.
+    // At least that's my understanding of these things, perhaps I am wrong and the way World#step works could be improved.
+
+    stepLatch = new CountDownLatch(8);
     exceptionThrownByStep = null;
 
     try {
